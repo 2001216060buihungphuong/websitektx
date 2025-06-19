@@ -123,7 +123,7 @@ export default function Header({ user, setUser }) {
             />
           </Link>
           <Link to="/dashboard" className="flex items-center">
-            <h1 className="text-lg text-yellow-500 font-bold text-center flex-1">
+            <h1 className="text-lg text-yellow-500 text-4xl mt-10 font-bold text-center flex-1">
               ỨNG DỤNG QUẢN LÝ KÝ TÚC XÁ <br />
               TRƯỜNG ĐẠI HỌC CÔNG THƯƠNG TP HỒ CHÍ MINH
             </h1>

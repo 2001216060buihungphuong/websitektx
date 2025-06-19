@@ -227,33 +227,54 @@ export default function GuiYeuCauSuaChua() {
                     <th className="px-4 py-2 text-left text-sm font-medium uppercase tracking-wider">Hành động</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {dsYeuCau.map((yc) => (
-                    <tr key={yc.maYCSC}>
-                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">#{yc.maYCSC}</td>
-                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{new Date(yc.ngayGui).toLocaleDateString()}</td>
-                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{yc.trangThai}</td>
-                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
-                        <button
-                          onClick={() => {
-                            setPendingCancelId(yc.maYCSC);
-                            setIsModalOpen(true);
-                            setMessage("Bạn có chắc muốn hủy yêu cầu này?");
-                            setIsSuccess(null);
-                          }}
-                          disabled={yc.trangThai === "Đã hủy"}
-                          className={`px-3 py-1 rounded text-white ${
-                            yc.trangThai === "Đã hủy"
-                              ? "bg-gray-400 cursor-not-allowed"
-                              : "bg-red-500 hover:bg-red-600"
-                          }`}
-                        >
-                          {yc.trangThai === "Đã hủy" ? "Đã hủy" : "Hủy"}
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
+           <tbody className="bg-white divide-y divide-gray-200">
+  {dsYeuCau.map((yc) => (
+    <tr key={yc.maYCSC}>
+      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">#{yc.maYCSC}</td>
+      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+        {new Date(yc.ngayGui).toLocaleDateString()}
+      </td>
+      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{yc.trangThai}</td>
+      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+        {yc.trangThai === "Đã hủy" ? (
+          <button
+            disabled
+            className="px-3 py-1 rounded text-white bg-gray-400 cursor-not-allowed"
+          >
+            Đã hủy
+          </button>
+        ) : yc.trangThai === "Đã Xử Lý" ? (
+          <button
+            onClick={() => {
+            const now = new Date();
+            const pad = (n) => n.toString().padStart(2, '0');
+            const fileName = `PhieuYeuCauSuaChua_${yc.maYCSC}_${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}.docx`;
+            alert(`File bạn cần kiểm tra: C:/Users/Phuong PC/OneDrive/Desktop/${fileName}`);
+
+            console.log("Xác nhận hoàn thành yêu cầu:", yc.maYCSC);
+          }}
+
+            className="px-3 py-1 rounded text-white bg-green-500 hover:bg-green-600"
+          >
+            Hoàn thành
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              setPendingCancelId(yc.maYCSC);
+              setIsModalOpen(true);
+              setMessage("Bạn có chắc muốn hủy yêu cầu này?");
+              setIsSuccess(null);
+            }}
+            className="px-3 py-1 rounded text-white bg-red-500 hover:bg-red-600"
+          >
+            Hủy
+          </button>
+        )}
+      </td>
+    </tr>
+  ))}
+</tbody>
               </table>
             </div>
           ) : (
